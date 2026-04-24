@@ -5,11 +5,8 @@ import {
   isEmailJSConfigured,
   sendInviteEmail,
 } from "./emailService";
-import {
-  useQuery,
-  useMutation,
-  useAuth,
-} from "@animaapp/playground-react-sdk";
+import { useQuery, useMutation } from "@/hooks/useFirestore";
+import { useAuth } from "@/hooks/useFirebaseAuth";
 import {
   AirplaneTakeoff,
   ArrowLeft,
