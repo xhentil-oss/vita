@@ -1594,15 +1594,15 @@ const KANBAN_HAIR_COLS = [
 
 const SERVICE_IMAGES: Record<string, { src: string; alt: string }> = {
   dental: {
-    src: "https://c.animaapp.com/mnywndlePh3yN0/img/ai_3.png",
+    src: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=400&auto=format&fit=crop",
     alt: "dentist performing dental treatment",
   },
   hair: {
-    src: "https://c.animaapp.com/mnywndlePh3yN0/img/ai_4.png",
+    src: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&auto=format&fit=crop",
     alt: "hair transplant team in procedure",
   },
   default: {
-    src: "https://c.animaapp.com/mnywndlePh3yN0/img/ai_2.png",
+    src: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&auto=format&fit=crop",
     alt: "doctor reviewing medical images",
   },
 };
@@ -9576,7 +9576,7 @@ function TeamManagementSection({
     setRuntimeWhitelist(next);
 
     const roleName = ROLE_CONFIG[newRole].label;
-    const platformUrl = "https://throbbing-butterfly-8724.dev.animaapp.io";
+    const platformUrl = typeof window !== "undefined" ? window.location.origin : "https://vita.vercel.app";
 
     if (isEmailJSConfigured()) {
       // ── Dërgim automatik përmes EmailJS ─────────────────────────────────
@@ -9846,7 +9846,7 @@ function EmailJSConfigCard() {
     const result = await sendInviteEmail({
       toEmail: testEmail.trim(),
       roleName: "Sales Agent",
-      platformUrl: "https://throbbing-butterfly-8724.dev.animaapp.io",
+      platformUrl: typeof window !== "undefined" ? window.location.origin : "https://vita.vercel.app",
       fromName: "Vita Medical (Test)",
     });
     setTesting(false);

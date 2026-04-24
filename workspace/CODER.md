@@ -5,15 +5,15 @@ Stores codebase conventions, tricky quirks, and frequently used patterns.
 <coder>
 # Codebase Knowledge
 
-## SDK (most recent — always check this first)
-- Package: `@animaapp/playground-react-sdk` v0.10.0
-- Import: `import { useQuery, useMutation, useLazyQuery, useAuth } from '@animaapp/playground-react-sdk'`
-- Provider: `AnimaProvider` wraps root in `src/index.tsx`
-- Entities: `Lead`, `Patient`, `Quote`, `Appointment`, `Task`, `TravelRecord`, `Payment`, `MediaFile`
-- Entity names are PascalCase strings as first arg to all hooks
+## Data Layer (Firebase — replaces Anima SDK)
+- Auth: `FirebaseProvider` wraps root in `src/index.tsx`; Google OAuth via `signInWithPopup`
+- Firestore: real-time listeners via `onSnapshot` — collections: leads, patients, quotes, appointments, tasks, travelRecords, payments, mediaFiles, services
+- Import: `import { useQuery, useMutation } from '@/hooks/useFirestore'`
+- Import: `import { useAuth } from '@/hooks/useFirebaseAuth'`
+- `useQuery(entity, idOrOptions?)` — returns `{ data, isPending, error }`; pass string id for single doc, options object for collection
+- `useMutation(entity)` — returns `{ create, update, remove, isPending, error }`
+- Entity names are PascalCase strings (same as before): `Lead`, `Patient`, `Quote`, `Appointment`, `Task`, `TravelRecord`, `Payment`, `MediaFile`
 - Always handle `isPending` and `error` from `useQuery`
-- `useMutation` returns `{ create, update, remove, isPending, error }`
-- `useAuth` returns `{ user, isPending, isAnonymous, login, logout }`
 
 ## UI Conventions
 - All icon sizes use numeric `size` prop (e.g., `size={16}`) — NOT `size="sm"`
@@ -31,7 +31,11 @@ Stores codebase conventions, tricky quirks, and frequently used patterns.
 
 ## File Structure
 - `src/App.tsx` — main monolithic component (all modules rendered here)
-- `src/index.tsx` — root with AnimaProvider
+- `src/index.tsx` — root with FirebaseProvider
+- `src/lib/firebase.ts` — Firebase app init (auth + db)
+- `src/FirebaseProvider.tsx` — Google OAuth context
+- `src/hooks/useFirestore.ts` — useQuery + useMutation hooks
+- `src/hooks/useFirebaseAuth.ts` — useAuth hook
 - `src/index.css` — Tailwind + custom design tokens
 - `tailwind.config.js` — custom color tokens defined here
 </coder>
